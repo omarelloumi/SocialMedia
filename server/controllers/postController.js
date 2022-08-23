@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Post = require('../models/Post');
 
-export const getPosts = async (req, res) => {
+const getPosts = async (req, res) => {
     try {
         const posts = await Post.find({});
         res.status(200).json(posts);
@@ -10,7 +10,7 @@ export const getPosts = async (req, res) => {
     }
 }
 
-export const createPost = async (req, res) => {
+const createPost = async (req, res) => {
     const post = req.body;
     const newPost = new Post(post);
     try {
@@ -21,7 +21,7 @@ export const createPost = async (req, res) => {
     }
 }
 
-export const updatePost = async (req, res) => {
+const updatePost = async (req, res) => {
     const { id : _id } = req.params;
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).send("Invalid ID");
@@ -35,7 +35,7 @@ export const updatePost = async (req, res) => {
     }
 }
 
-export const deletePost = async (req, res) => {
+const deletePost = async (req, res) => {
     const { id : _id } = req.params;
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).send("Invalid ID");
@@ -48,8 +48,7 @@ export const deletePost = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-
-export const likePost = async (req, res) => {
+const likePost = async (req, res) => {
     const { id : _id } = req.params;
     if(!mongoose.Types.ObjectId.isValid(_id)) {
         return res.status(400).send("Invalid ID");
@@ -62,4 +61,12 @@ export const likePost = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+}
+
+module.exports = {
+    getPosts,
+    createPost,
+    updatePost,
+    deletePost,
+    likePost
 }
