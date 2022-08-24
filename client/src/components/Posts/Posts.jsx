@@ -20,7 +20,7 @@ export const Posts = ({setCurrentId}) => {
     (
       <Grid style={classes.mainContainer} container alignItems="stretch" spacing={3} >
         {posts.map((post,i) => (
-          <Grid key={i} item xs={12} lg={6}>
+          <Grid key={i} item xs={12} lg={4}>
             <Post  post={post} setCurrentId={setCurrentId} />
           </Grid>
         ))}
