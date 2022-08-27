@@ -3,12 +3,12 @@ import { TextField, Button, Typography, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
-import { createPost, updatePost } from '../../actions/postAction';
+import { createPost, updatePost } from '../../features/posts/postSlice';
 
-export const Form = ({ currentId, setCurrentId }) => {
+export const Form = ({ currentId, setCurrentId,refetch, setRefetch }) => {
   const dispatch = useDispatch();
   const classes = useStyles;
-  const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
+  const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const [postData, setPostData] = useState({
     creator: '',
     title: '',
@@ -25,7 +25,8 @@ export const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId) {
-      dispatch(updatePost(currentId, postData));
+      dispatch(updatePost(postData));
+      setRefetch(!refetch);
     } else {
       dispatch(createPost(postData));
     }
