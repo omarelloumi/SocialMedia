@@ -18,7 +18,7 @@ export const Posts = ({setCurrentId,refetch, setRefetch}) => {
     (
       <Grid style={classes.mainContainer} container alignItems="stretch" spacing={3} >
         {posts.map((post,i) => (
-          <Grid key={i} item xs={12} lg={4}>
+          <Grid key={i} item xs={12} lg={6}>
             <Post  post={post} setCurrentId={setCurrentId} dispatch={dispatch} refetch={refetch} setRefetch={setRefetch}/>
           </Grid>
         ))}

@@ -28,7 +28,7 @@ export const Post = ({ post, setCurrentId ,dispatch,refetch,setRefetch}) => {
         <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
       </CardContent>
       <CardActions style={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id));setRefetch(!refetch)}}><ThumbUpAltIcon fontSize="small" /> Like {post.likeCount} </Button>
+        <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id));setRefetch(!refetch)}}><ThumbUpAltIcon fontSize="small" /> &nbsp; Like &nbsp; {post.likeCount} </Button>
         <Button size="small" color="primary" onClick={() => {dispatch(deletePost(post._id));setRefetch(!refetch)}}><DeleteIcon fontSize="small" /> Delete</Button>
       </CardActions>
     </Card>
