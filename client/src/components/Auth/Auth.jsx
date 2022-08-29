@@ -3,6 +3,8 @@ import { Container, Typography, Grid, Avatar, Button,Paper } from '@mui/material
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './Input';
 import {useStyles} from './styles';
+import { GoogleLogin } from 'react-google-login';
+import Icon from './assets/Icon.js';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -10,15 +12,20 @@ const Auth = () => {
   const classes = useStyles;
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
-  const handleSubmit = (e) => {}
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleSubmit = (e) => {}
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
   const handleShowPassword = () => setShowPassword(!showPassword);
+
   const switchMode = () => {
     setForm(initialState);
     setIsSignup((prevIsSignup) => !prevIsSignup);
     setShowPassword(false);
   };
+
   return (
     <Container component="main" maxWidth="xs">
     <Paper style={classes.paper} elevation={3}>
@@ -46,6 +53,14 @@ const Auth = () => {
             <Button onClick={switchMode}>
               { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
             </Button>
+            <GoogleLogin
+              clientId="564033717568-e5p23rhvcs4i6kffgsbci1d64r8hp6fn.apps.googleusercontent.com"
+              render={(renderProps) => (
+              <Button style={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
+                Google Sign In
+              </Button>
+            )}
+          />
           </Grid>
         </Grid>
       </form>
