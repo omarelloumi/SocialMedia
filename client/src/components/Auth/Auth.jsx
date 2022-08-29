@@ -26,6 +26,10 @@ const Auth = () => {
     setShowPassword(false);
   };
 
+  const googleSuccess = async (res) => {};
+
+  const googleError = () => alert('Google Sign In was unsuccessful. Try again later');
+
   return (
     <Container component="main" maxWidth="xs">
     <Paper style={classes.paper} elevation={3}>
@@ -59,8 +63,11 @@ const Auth = () => {
               <Button style={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Google Sign In
               </Button>
-            )}
-          />
+              )}
+              onSuccess={googleSuccess}
+              onFailure={googleError}
+              cookiePolicy="single_host_origin"
+            />
           </Grid>
         </Grid>
       </form>
