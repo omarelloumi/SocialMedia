@@ -13,7 +13,7 @@ import { useStyles } from "./styles";
 import jwt_decode from "jwt-decode";
 import { googleAuth } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 const initialState = {
   firstName: "",
   lastName: "",
@@ -28,6 +28,7 @@ const Auth = () => {
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {};
 
   const handleChange = (e) =>
@@ -44,6 +45,7 @@ const Auth = () => {
   const handleGoogleLogin = (response) => {
     const authData = jwt_decode(response.credential);
     dispatch(googleAuth(authData));
+    navigate("/");
   }
 
   useEffect(() => {

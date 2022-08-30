@@ -3,7 +3,7 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from '@mui/material';
 import memories from '../../images/memories.png';
 import {useStyles} from './styles';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import jwt_decode from "jwt-decode";
 import { logout as signout } from "../../features/auth/authSlice";
 const Navbar = () => {
