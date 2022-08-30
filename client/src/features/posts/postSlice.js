@@ -9,7 +9,6 @@ export const createPost = createAsyncThunk(
   'posts/create',
   async (postData, thunkAPI) => {
     try {
-      console.log("9bal el requette",postData);
       return await postService.createPost(postData)
     } catch (error) {
       const message =
