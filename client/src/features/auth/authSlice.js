@@ -1,8 +1,42 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import authService from './authService'
+
+// Get user from localStorage
+const profile = JSON.parse(localStorage.getItem('profile'))
 
 const initialState = {
-  profile: null,
+  profile: profile ? profile : null
 }
+
+export const signin = createAsyncThunk(
+  'auth/signin', 
+  async (user, thunkAPI) => {
+    try {
+      return await authService.signin(user)
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+export const signup = createAsyncThunk(
+  'auth/signup', 
+  async (user, thunkAPI) => {
+    try {
+      return await authService.signup(user)
+    } catch (error) {
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
 
 export const googleAuth = createAsyncThunk(
   'profile/googleAuth',
@@ -52,6 +86,12 @@ export const authSlice = createSlice({
           state.profile=action.payload
         })
         .addCase(logout.fulfilled, (state, action) => {
+          state.profile=action.payload
+        })
+        .addCase(signin.fulfilled, (state, action) => {
+          state.profile=action.payload
+        })
+        .addCase(signup.fulfilled, (state, action) => {
           state.profile=action.payload
         })
     },
