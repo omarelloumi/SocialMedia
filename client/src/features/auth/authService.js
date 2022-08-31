@@ -1,9 +1,16 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/user';
+const API = axios.create({ baseURL: 'http://localhost:5000/user' });
+API.interceptors.request.use((req) => {
+    if (localStorage.getItem('profile')) {
+      req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+    }
+  
+    return req;
+  });
 
 const signup = async (userData) => {
-    const response = await axios.post(url + '/signup', userData);
+    const response = await API.post('/signup', userData);
     if (response.data) {
         localStorage.setItem('profile', JSON.stringify(response.data))
     }
@@ -12,7 +19,7 @@ const signup = async (userData) => {
 }
 
 const signin = async (userData) => {
-    const response = await axios.post(url + '/signin', userData);
+    const response = await API.post('/signin', userData);
     if (response.data) {
         localStorage.setItem('profile', JSON.stringify(response.data))
     }
