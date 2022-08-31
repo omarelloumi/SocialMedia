@@ -43,7 +43,10 @@ const Auth = () => {
   };
 
   const handleGoogleLogin = (response) => {
-    const authData = jwt_decode(response.credential);
+    const authData = {
+      result : jwt_decode(response.credential),
+      token: response.credential
+    };
     dispatch(googleAuth(authData));
     navigate("/");
   }
