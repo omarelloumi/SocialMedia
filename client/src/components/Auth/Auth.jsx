@@ -14,22 +14,32 @@ import jwt_decode from "jwt-decode";
 import { googleAuth } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
+import { signin, signup } from "../../features/auth/authSlice"; 
 
 const Auth = () => {
+  const navigate = useNavigate();
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    navigate : navigate,
+  };
   const classes = useStyles;
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleSubmit = (e) => {};
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isSignup) {
+      dispatch(signup(form));
+    } else {
+      dispatch(signin(form));
+    }
+  };
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -45,10 +55,10 @@ const Auth = () => {
   const handleGoogleLogin = (response) => {
     const authData = {
       result : jwt_decode(response.credential),
-      token: response.credential
+      token: response.credential,
+      navigate: navigate,
     };
     dispatch(googleAuth(authData));
-    navigate("/");
   }
 
   useEffect(() => {

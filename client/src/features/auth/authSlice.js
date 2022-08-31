@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import authService from './authService'
-
 // Get user from localStorage
 const profile = JSON.parse(localStorage.getItem('profile'))
 
@@ -12,7 +11,8 @@ export const signin = createAsyncThunk(
   'auth/signin', 
   async (user, thunkAPI) => {
     try {
-      return await authService.signin(user)
+      const { data } = await authService.signin(user)
+      return {data , user}
     } catch (error) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
@@ -27,7 +27,8 @@ export const signup = createAsyncThunk(
   'auth/signup', 
   async (user, thunkAPI) => {
     try {
-      return await authService.signup(user)
+      const { data } = await authService.signup(user)
+      return {data , user}
     } catch (error) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
@@ -83,16 +84,20 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
       builder
         .addCase(googleAuth.fulfilled, (state, action) => {
-          state.profile=action.payload
+          state.profile=action.payload;
+          console.log(action.payload)
+          action.payload.navigate('/');
         })
         .addCase(logout.fulfilled, (state, action) => {
           state.profile=action.payload
         })
         .addCase(signin.fulfilled, (state, action) => {
-          state.profile=action.payload
+          state.profile=action.payload.data;
+          action.payload.user.navigate('/');
         })
         .addCase(signup.fulfilled, (state, action) => {
-          state.profile=action.payload
+          state.profile=action.payload.data;
+          action.payload.user.navigate('/');
         })
     },
   })
