@@ -57,7 +57,7 @@ const signup = async (req, res) => {
 };
 
 const generateToken = (id) => {
-  return jwt.sign({ id }, secret, {
+  return jwt.sign({ id : id }, secret, {
     expiresIn: '1h',
   })
 }

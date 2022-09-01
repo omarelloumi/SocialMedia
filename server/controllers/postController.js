@@ -11,7 +11,15 @@ const getPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
-    const post = req.body;
+    console.log(req.body);
+    const post = {
+        title : req.body.title,
+        message : req.body.message,
+        selectedFile : req.body.selectedFile,
+        tags : req.body.tags,
+        name : req.body.name,
+        creator : req.userId,
+    }
     const newPost = new Post(post);
     try {
         await newPost.save();

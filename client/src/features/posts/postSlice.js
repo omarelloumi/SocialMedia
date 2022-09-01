@@ -4,12 +4,13 @@ import * as postService from './postService'
 const initialState = {
   posts: [],
 }
+const profile = JSON.parse(localStorage.getItem('profile'))
 
 export const createPost = createAsyncThunk(
   'posts/create',
   async (postData, thunkAPI) => {
     try {
-      return await postService.createPost(postData)
+      return await postService.createPost(postData,profile.token)
     } catch (error) {
       const message =
         (error.response &&
@@ -26,7 +27,7 @@ export const updatePost = createAsyncThunk(
   'posts/update',
   async (postData, thunkAPI) => {
     try {
-      return await postService.updatePost(postData._id,postData)
+      return await postService.updatePost(postData._id,postData,profile.token)
     } catch (error) {
       const message =
         (error.response &&
@@ -60,7 +61,7 @@ export const deletePost = createAsyncThunk(
   'posts/delete',
   async (postId, thunkAPI) => {
     try {
-      return await postService.deletePost(postId)
+      return await postService.deletePost(postId,profile.token)
     } catch (error) {
       const message =
         (error.response &&
@@ -77,7 +78,7 @@ export const likePost = createAsyncThunk(
     'posts/like',
     async (postId, thunkAPI) => {
       try {
-        return await postService.likePost(postId)
+        return await postService.likePost(postId,profile.token)
       } catch (error) {
         const message =
           (error.response &&
