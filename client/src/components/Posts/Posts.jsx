@@ -1,28 +1,23 @@
 import React, {useEffect} from 'react'
-import { Grid, CircularProgress } from '@mui/material';
+
 import { useSelector } from 'react-redux'
-import { Post } from './Post/Post'
+
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { fetchPosts } from '../../features/posts/postSlice';
+import PostsDefault from './PostsDefault';
 
-export const Posts = ({setCurrentId,refetch, setRefetch}) => {
+export const Posts = ({setCurrentId,refetch, setRefetch,search}) => {
   const posts = useSelector(state => state.posts.posts);
+  const searchedPosts = posts.filter(post => post.title.includes(search));
   const classes = useStyles;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPosts());
-  }, [refetch,dispatch]);
+  }, [refetch,dispatch,search]);
   return (
-    !posts.length ? <CircularProgress style={classes.progress} /> :
-    (
-      <Grid style={classes.mainContainer} container alignItems="stretch" spacing={3} >
-        {posts.map((post,i) => (
-          <Grid key={i} item xs={12} lg={6}>
-            <Post  post={post} setCurrentId={setCurrentId} dispatch={dispatch} refetch={refetch} setRefetch={setRefetch}/>
-          </Grid>
-        ))}
-      </Grid>
-    )
+    <>
+      {search==='' ? <PostsDefault posts={posts} classes={classes} setCurrentId={setCurrentId} refetch={refetch} setRefetch={setRefetch} dispatch={dispatch} /> : <PostsDefault posts={searchedPosts} classes={classes} setCurrentId={setCurrentId} refetch={refetch} setRefetch={setRefetch} dispatch={dispatch} /> }
+    </>
   )
 }
