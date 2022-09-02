@@ -18,7 +18,9 @@ export const Post = ({ post, setCurrentId ,dispatch,refetch,setRefetch}) => {
         <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
       </div>
       <div style={classes.overlay2}>
+      {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
         <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}><MoreHorizIcon fontSize="medium" /></Button>
+      )}
       </div>
       <div style={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
