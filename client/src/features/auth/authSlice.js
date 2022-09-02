@@ -58,7 +58,7 @@ export const googleAuth = createAsyncThunk(
   }
 )
 
-export const logout = createAsyncThunk(
+export const logoutt = createAsyncThunk(
   'profile/logout',
   async (_id, thunkAPI) => {
     try {
@@ -89,7 +89,7 @@ export const authSlice = createSlice({
           console.log(action.payload)
           action.payload.navigate('/');
         })
-        .addCase(logout.fulfilled, (state, action) => {
+        .addCase(logoutt.fulfilled, (state, action) => {
           state.profile=action.payload
         })
         .addCase(signin.fulfilled, (state, action) => {

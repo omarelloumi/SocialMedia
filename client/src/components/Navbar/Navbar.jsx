@@ -5,7 +5,7 @@ import {useStyles} from './styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch} from 'react-redux';
 import jwt_decode from "jwt-decode";
-import { logout as signout } from "../../features/auth/authSlice";
+import { logoutt  } from "../../features/auth/authSlice";
 const Navbar = () => {
     const classes = useStyles;
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -13,7 +13,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     const logout = useCallback(() => {
-      dispatch(signout());
+      dispatch(logoutt());
       navigate('/auth');
       setUser(null);
     },[dispatch, navigate]);
