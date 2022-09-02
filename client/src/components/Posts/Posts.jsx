@@ -17,7 +17,9 @@ export const Posts = ({setCurrentId,refetch, setRefetch,search}) => {
   }, [refetch,dispatch,search]);
   return (
     <>
-      {search==='' ? <PostsDefault posts={posts} classes={classes} setCurrentId={setCurrentId} refetch={refetch} setRefetch={setRefetch} dispatch={dispatch} /> : <PostsDefault posts={searchedPosts} classes={classes} setCurrentId={setCurrentId} refetch={refetch} setRefetch={setRefetch} dispatch={dispatch} /> }
+      {search==='' ? 
+      <PostsDefault posts={posts} classes={classes} setCurrentId={setCurrentId} refetch={refetch} setRefetch={setRefetch} dispatch={dispatch} /> 
+      : <PostsDefault posts={searchedPosts} classes={classes} setCurrentId={setCurrentId} refetch={refetch} setRefetch={setRefetch} dispatch={dispatch} /> }
     </>
   )
 }
