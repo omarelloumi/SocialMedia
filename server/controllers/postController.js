@@ -65,7 +65,7 @@ const likePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     
-    const post = await PostMessage.findById(id);
+    const post = await Post.findById(id);
 
     const index = post.likes.findIndex((id) => id ===String(req.userId));
 
@@ -75,7 +75,7 @@ const likePost = async (req, res) => {
       post.likes = post.likes.filter((id) => id !== String(req.userId));
     }
     
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+    const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
     res.status(200).json(updatedPost);
 }
 
