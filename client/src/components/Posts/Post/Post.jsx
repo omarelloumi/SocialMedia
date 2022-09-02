@@ -9,7 +9,7 @@ import useStyles from './styles';
 
 export const Post = ({ post, setCurrentId ,dispatch,refetch,setRefetch}) => {
   const classes = useStyles;
-  
+  const user = JSON.parse(localStorage.getItem('profile'));
   return (
     <Card style={classes.card}>
       <CardMedia style={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
@@ -29,7 +29,9 @@ export const Post = ({ post, setCurrentId ,dispatch,refetch,setRefetch}) => {
       </CardContent>
       <CardActions style={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id));setRefetch(!refetch)}}><Likes post={post} /></Button>
+        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
         <Button size="small" color="primary" onClick={() => {dispatch(deletePost(post._id));setRefetch(!refetch)}}><DeleteIcon fontSize="small" /> Delete</Button>
+        )}
       </CardActions>
     </Card>
   );
