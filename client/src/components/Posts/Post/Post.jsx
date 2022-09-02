@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import Likes from './Like/Likes';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import moment from 'moment';
@@ -9,7 +9,7 @@ import useStyles from './styles';
 
 export const Post = ({ post, setCurrentId ,dispatch,refetch,setRefetch}) => {
   const classes = useStyles;
-
+  
   return (
     <Card style={classes.card}>
       <CardMedia style={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
@@ -28,7 +28,7 @@ export const Post = ({ post, setCurrentId ,dispatch,refetch,setRefetch}) => {
         <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
       </CardContent>
       <CardActions style={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id));setRefetch(!refetch)}}><ThumbUpAltIcon fontSize="small" /> &nbsp; Like &nbsp; {post.likeCount} </Button>
+        <Button size="small" color="primary" onClick={() => {dispatch(likePost(post._id));setRefetch(!refetch)}}><Likes post={post} /></Button>
         <Button size="small" color="primary" onClick={() => {dispatch(deletePost(post._id));setRefetch(!refetch)}}><DeleteIcon fontSize="small" /> Delete</Button>
       </CardActions>
     </Card>
