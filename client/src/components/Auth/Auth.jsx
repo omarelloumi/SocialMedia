@@ -61,8 +61,8 @@ const Auth = () => {
     dispatch(googleAuth(authData));
   }
 
+/*
   useEffect(() => {
-    /* global google */
     google.accounts.id.initialize({
       client_id: "686444786669-7neoafvljedel03hjedv04bn00t9p3ls.apps.googleusercontent.com",
       callback: handleGoogleLogin
@@ -73,7 +73,8 @@ const Auth = () => {
       width: '355',
       theme: 'filled_blue', }
     )
-  } )
+  })*/
+
   return (
     <Container component="main" maxWidth="xs">
       <Paper style={classes.paper} elevation={3}>
